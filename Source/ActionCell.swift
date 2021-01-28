@@ -32,26 +32,32 @@ public protocol SeparatorCellType: NSObjectProtocol {
 open class ActionCell: UICollectionViewCell, SeparatorCellType {
 
     @IBOutlet open weak var actionTitleLabel: UILabel?
-    @IBOutlet open weak var actionImageView: UIImageView?
+    @IBOutlet open weak var actionImageViewLeft: UIImageView?
+    @IBOutlet open weak var actionImageViewRight: UIImageView?
     @IBOutlet open weak var actionDetailLabel: UILabel?
     @IBOutlet open weak var separatorView: UIView?
 
-    @IBOutlet open weak var imageViewWidthConstraint: NSLayoutConstraint?
+    @IBOutlet open weak var imageViewWidthConstraintLeft: NSLayoutConstraint?
+    @IBOutlet open weak var imageViewWidthConstraintRight: NSLayoutConstraint?
 
-    var imageWidth: CGFloat = 0
+    var imageWidthLeft: CGFloat = 0
+    var imageWidthRight: CGFloat = 0
 
     open override func awakeFromNib() {
         super.awakeFromNib()
 
-        imageWidth = imageViewWidthConstraint?.constant ?? 0
+        imageWidthLeft = imageViewWidthConstraintLeft?.constant ?? 0
+        imageWidthRight = imageViewWidthConstraintRight?.constant ?? 0
     }
 
-    open func setup(_ title: String?, detail: String?, image: UIImage?) {
+    open func setup(_ title: String?, detail: String?, imgLeft: UIImage?, imgRight: UIImage?) {
         actionTitleLabel?.text = title
         actionDetailLabel?.text = detail
-        actionImageView?.image = image
+        actionImageViewLeft?.image = imgLeft
+        actionImageViewRight?.image = imgRight
 
-        imageViewWidthConstraint?.constant = image == nil ? 0 : imageWidth
+        imageViewWidthConstraintLeft?.constant = imgLeft == nil ? 0 : imageWidthLeft
+        imageViewWidthConstraintRight?.constant = imgRight == nil ? 0 : imageWidthRight
 
         setNeedsLayout()
     }
